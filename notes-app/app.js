@@ -1,7 +1,7 @@
 const validator = require("validator");
 
 const yargs = require("yargs");
-const getNotes = require("./notes.js");
+const notes = require("./notes.js");
 // const chalk = require("chalk");
 // const msg = getNotes();
 
@@ -14,8 +14,23 @@ yargs.version("1.1.0");
 yargs.command({
   command: "add",
   describe: "Add a new note",
-  handler: function () {
-    console.log("Adding a new note!");
+  builder: {
+    title: {
+      describe: "Note title",
+      demandOption: true,
+      type: "string",
+    },
+    body: {
+      describe: "Note Body",
+      demandOption: true,
+      type: "String",
+    },
+  },
+  handler: function (argv) {
+    // //console.log("Adding a new note!", argv);
+    // console.log("Title: " + argv.title);
+    // console.log("Body: " + argv.body);
+    notes.addNotes(argv.title, argv.body);
   },
 });
 
@@ -41,4 +56,5 @@ yargs.command({
     console.log("reading  note");
   },
 });
-console.log(yargs.argv);
+//console.log(yargs.argv);
+yargs.parse();
