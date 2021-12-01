@@ -1,4 +1,5 @@
 const request = require("request");
+const geocode = require("./utils/geocode");
 
 // const url =
 //   "http://api.weatherstack.com/current?access_key=07576112832c04ea8b768d26273df626&query=23.6850,90.3563&units=m";
@@ -17,16 +18,22 @@ const request = require("request");
 //     );
 //   }
 // });
-const url =
-  "https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1Ijoic2FkaWQiLCJhIjoiY2t3YXRkaXFwZGUxajJ1cTFoajE5d2U2aCJ9.WQ0i8_gWW3AdJ5fcqhrSmQ&limit=1";
-request({ url: url, json: true }, (error, response) => {
-  if (error) {
-    console.log("could not connect to internet");
-  } else if (response.body.features.length == 0) {
-    console.log("Error occur");
-  } else {
-    const latitude = response.body.features[0].center[0];
-    const longitude = response.body.features[0].center[1];
-    console.log(latitude, longitude);
-  }
+// const url =
+//   "https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1Ijoic2FkaWQiLCJhIjoiY2t3YXRkaXFwZGUxajJ1cTFoajE5d2U2aCJ9.WQ0i8_gWW3AdJ5fcqhrSmQ&limit=1";
+// request({ url: url, json: true }, (error, response) => {
+//   if (error) {
+//     console.log("could not connect to internet");
+//   } else if (response.body.features.length == 0) {
+//     console.log("Error occur");
+//   } else {
+//     const latitude = response.body.features[0].center[0];
+//     const longitude = response.body.features[0].center[1];
+//     console.log(latitude, longitude);
+//   }
+// });
+
+geocode("Boston", (error, data) => {
+  console.log("Error", error);
+  console.log("Data", data["latitude"], data["longitude"]);
+  console.log("Data", data.latitude, data.longitude, data.location);
 });
